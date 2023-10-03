@@ -10,5 +10,6 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.alterTable('transactions', (table) => {
     table.dropColumn('amount')
+    table.decimal('amout', 10, 2).notNullable()
   })
 }
