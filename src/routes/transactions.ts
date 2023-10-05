@@ -6,12 +6,16 @@ import { randomUUID } from 'node:crypto'
 import { CheckIdSessionIdExist } from '../middlewares/check-sessionId'
 
 export const transactionsRoutes = async (app: FastifyInstance) => {
+  app.addHook('preHandler', async (request) => {
+    console.log(`${request.method}`)
+  })
+
   app.get(
     '/',
     {
       preHandler: [CheckIdSessionIdExist],
     },
-    async (request, reply) => {
+    async (request) => {
       const { sessionId } = request.cookies
 
       const transactions = await knex('transactions')
