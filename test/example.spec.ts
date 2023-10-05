@@ -22,7 +22,7 @@ describe('Transactions routes', () => {
       .expect(201)
   })
 
-  it.only('Should be able to list all transactions', async () => {
+  it('Should be able to list all transactions', async () => {
     const mockTransactions = await request(app.server)
       .post('/transactions')
       .send({
