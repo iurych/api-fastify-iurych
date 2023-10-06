@@ -102,7 +102,7 @@ it('Should be able to sumarize all transactions', async () => {
   })
 
   const summaryResponse = await request(app.server)
-    .get('/transactions')
+    .get('/summary')
     .set('Cookie', cookies)
     .expect(200)
 
