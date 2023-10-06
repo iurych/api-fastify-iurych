@@ -16,7 +16,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
       preHandler: [CheckIdSessionIdExist],
     },
     async (request) => {
-      const { sessionId } = request.cookies
+      const sessionId = request.cookies.session_id
       const transactions = await knex('transactions')
         .where('session_id', sessionId)
         .select()
@@ -38,7 +38,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
       })
 
       const { id } = allTransactionsSchema.parse(request.params)
-      const { sessionId } = request.cookies
+      const sessionId = request.cookies.session_id
 
       const transaction = await knex('transactions')
         .where({
@@ -57,7 +57,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
       preHandler: [CheckIdSessionIdExist],
     },
     async (request) => {
-      const { sessionId } = request.cookies
+      const sessionId = request.cookies.session_id
 
       const summary = await knex('transactions')
         .where('session_id', sessionId)
@@ -77,7 +77,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
 
     const { amount, title, type } = createBodySchema.parse(request.body)
 
-    let sessionId = request.cookies.sessionId
+    let sessionId = request.cookies.session_id
 
     if (!sessionId) {
       sessionId = randomUUID()
