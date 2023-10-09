@@ -1,22 +1,47 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.env = void 0;
-const dotenv_1 = require("dotenv");
-const zod_1 = require("zod");
-if (process.env.NODE_ENV === 'test') {
-    (0, dotenv_1.config)({ path: '.env.test' });
-}
-else {
-    (0, dotenv_1.config)();
-}
-const envSchema = zod_1.z.object({
-    NODE_ENV: zod_1.z.enum(['development', 'test', 'production']).default('production'),
-    DATABASE_URL: zod_1.z.string(),
-    PORT: zod_1.z.number().default(3333),
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/env/index.ts
+var env_exports = {};
+__export(env_exports, {
+  env: () => env
 });
-const _env = envSchema.safeParse(process.env);
-if (_env.success === false) {
-    console.error('⚠ Invalid Environment Variable', _env.error.format());
-    throw new Error('Invalid Environment Variable');
+module.exports = __toCommonJS(env_exports);
+var import_dotenv = require("dotenv");
+var import_zod = require("zod");
+if (process.env.NODE_ENV === "test") {
+  (0, import_dotenv.config)({ path: ".env.test" });
+} else {
+  (0, import_dotenv.config)();
 }
-exports.env = _env.data;
+var envSchema = import_zod.z.object({
+  NODE_ENV: import_zod.z.enum(["development", "test", "production"]).default("production"),
+  DATABASE_URL: import_zod.z.string(),
+  PORT: import_zod.z.number().default(3333)
+});
+var _env = envSchema.safeParse(process.env);
+if (_env.success === false) {
+  console.error("\u26A0 Invalid Environment Variable", _env.error.format());
+  throw new Error("Invalid Environment Variable");
+}
+var env = _env.data;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  env
+});
